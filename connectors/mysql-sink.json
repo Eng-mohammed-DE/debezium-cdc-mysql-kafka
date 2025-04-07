@@ -1,0 +1,23 @@
+{
+    "name": "mysql-sink-connector",
+    "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+      "tasks.max": "1",
+      "connection.url": "jdbc:mysql://mysql_db:3306/testdb",
+      "connection.user": "user",
+      "connection.password": "password",
+      "table.name.format": "empp",
+      "topics": "dbserver1.testdb.emp",
+      "auto.create": "true",
+      "pk.mode": "record_value",
+      "pk.fields": "id",
+      "transforms": "ExtractAfter,CastSalary,DropSource",
+      "transforms.ExtractAfter.type": "org.apache.kafka.connect.transforms.ExtractField$Value",
+      "transforms.ExtractAfter.field": "after",
+      "transforms.CastSalary.type": "org.apache.kafka.connect.transforms.Cast$Value",
+      "transforms.CastSalary.spec": "salary:float64",
+      "transforms.DropSource.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.DropSource.blacklist": "source"
+    }
+  }
+  
